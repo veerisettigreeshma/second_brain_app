@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 load_dotenv()
-
+key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 from flask import Flask, render_template, request, redirect, jsonify
 import sqlite3
@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 # ---------- DB Setup ----------
 def init_db():
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/tmp/database.db")
     conn.execute("""
     CREATE TABLE IF NOT EXISTS notes(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,7 +33,7 @@ def index():
     query = request.args.get("q", "")
     tag = request.args.get("tag", "")
 
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/tmp/database.db")
 
     sql = "SELECT * FROM notes WHERE 1=1"
     params = []
@@ -61,7 +61,7 @@ def add_note():
         content = request.form["content"]
         note_type = request.form["type"]
 
-        conn = sqlite3.connect("database.db")
+        conn = sqlite3.connect("/tmp/database.db")
         conn.execute(
             "INSERT INTO notes(title, content, type) VALUES (?, ?, ?)",
             (title, content, note_type),
@@ -76,7 +76,7 @@ def add_note():
 
 @app.route("/note/<int:id>")
 def view_note(id):
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/tmp/database.db")
     note = conn.execute("SELECT * FROM notes WHERE id=?", (id,)).fetchone()
     conn.close()
     return render_template("view.html", note=note)
@@ -94,7 +94,7 @@ def public_api():
 
 @app.route("/summarize/<int:id>")
 def summarize(id):
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/tmp/database.db")
     note = conn.execute("SELECT content FROM notes WHERE id=?", (id,)).fetchone()
     conn.close()
 
@@ -116,7 +116,7 @@ def summarize(id):
 
 @app.route("/delete/<int:id>")
 def delete_note(id):
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/tmp/database.db")
     conn.execute("DELETE FROM notes WHERE id=?", (id,))
     conn.commit()
     conn.close()
@@ -127,7 +127,7 @@ def delete_note(id):
 def search():
     q = request.args.get("q", "")
 
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/tmp/database.db")
     notes = conn.execute(
         "SELECT * FROM notes WHERE title LIKE ? OR content LIKE ? OR type LIKE ?",
         (f"%{q}%", f"%{q}%", f"%{q}%")
@@ -140,7 +140,7 @@ def search():
 # ---------- Tag filter route ----------
 @app.route("/tag/<tag>")
 def filter_tag(tag):
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/tmp/database.db")
     notes = conn.execute(
         "SELECT * FROM notes WHERE type LIKE ?",
         (f"%{tag}%",)
@@ -152,7 +152,7 @@ def filter_tag(tag):
 def ask_ai():
     question = request.form["question"]
 
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/tmp/database.db")
     notes = conn.execute("SELECT content FROM notes").fetchall()
     conn.close()
 
