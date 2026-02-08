@@ -1,0 +1,252 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f6f7fb;
+    margin: 0;
+    padding: 40px;
+}
+
+/* container */
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+/* title */
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* search bar */
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* buttons */
+button, .btn {
+    background: #4f46e5;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+button:hover, .btn:hover {
+    background: #4338ca;
+}
+
+/* cards */
+.card {
+    background: white;
+    padding: 15px;
+    margin: 12px 0;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+/* form spacing */
+form {
+    margin-bottom: 20px;
+}
+
+/* ---------- search input styling ---------- */
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+
+.btn {
+    margin-right: 6px;
+}
+
+a[href*="delete"] {
+    background: #ef4444;
+}
+
+a[href*="delete"]:hover {
+    background: #dc2626;
+}
+/* ---------- tag filters ---------- */
+.filters {
+    margin-bottom: 15px;
+}
+
+.tag-btn {
+    background: #e5e7eb;
+    padding: 6px 12px;
+    border-radius: 20px;
+    text-decoration: none;
+    margin-right: 6px;
+    font-size: 13px;
+    color: black;
+}
+
+.tag-btn:hover {
+    background: #d1d5db;
+}
+
+/* tag badge */
+.badge {
+    background: #4f46e5;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-left: 8px;
+}
+body.dark {
+    background: #121212;
+    color: white;
+}
+
+body.dark .card {
+    background: #1e1e1e;
+}
+.card {
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+/* -------- Dark Mode -------- */
+
+body.dark {
+    background: #121212;
+    color: white;
+}
+
+body.dark .card {
+    background: #1e1e1e;
+}
+
+.tag {
+    background: #e5e7eb;
+    padding: 4px 8px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+body.dark .tag {
+    background: #333;
+}
+/* ---------- Premium Layout ---------- */
+
+body {
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+}
+
+/* header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* title style */
+.header h1 {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+/* grid cards */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+/* modern card */
+.card {
+    transition: all 0.25s ease;
+    border-radius: 16px;
+}
+
+/* hover animation */
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+/* tag style */
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 12px;
+    background: #6366f1;
+    color: white;
+    border-radius: 20px;
+    margin-right: 5px;
+}
+/* fade animation */
+.card {
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* ---------- spacing polish ---------- */
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 10px;
+}
+
+.btn {
+    margin-top: 6px;
+    display: inline-block;
+}
+
+h1, h2, h3 {
+    margin-bottom: 10px;
+}
+
+/* ---------- Dark mode ---------- */
+
+.dark {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+.dark .card {
+    background: #1e293b;
+    color: white;
+}
+
+.dark input {
+    background: #334155;
+    color: white;
+    border: none;
+}
+/* smooth appearance */
+.card {
+    animation: fadeIn 0.35s ease;
+}
+
+@keyframes fadeIn {
+    from {opacity:0; transform:translateY(8px);}
+    to {opacity:1; transform:translateY(0);}
+}

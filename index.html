@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Second Brain</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+<div class="container">
+
+<h1>
+    🧠 Second Brain
+    <button onclick="toggleDark()">🌙</button>
+</h1>
+
+<form method="GET">
+    <input
+        type="text"
+        name="q"
+        placeholder="🔍 Search notes..."
+        value="{{ query }}"
+    >
+</form>
+<div class="filters">
+    <a class="tag-btn" href="/">All</a>
+    <a class="tag-btn" href="/?tag=note">Notes</a>
+    <a class="tag-btn" href="/?tag=idea">Ideas</a>
+    <a class="tag-btn" href="/?tag=link">Links</a>
+</div>
+
+<br>
+<a class="btn" href="/add">➕ Add Note</a>
+
+<hr>
+
+{% for note in notes %}
+<div class="card">
+    <h3>{{ note[1] }}</h3>
+    <span class="badge">{{ note[3] }}</span>
+    <p>Type: {{ note[3] }}</p>
+    style="margin-top:8px;">
+    <a class="btn" href="/note/{{ note[0] }}">View</a>
+    <a class="btn" href="/delete/{{ note[0] }}" onclick="return confirm('Delete this note?')">Delete</a>
+    <p>
+{% for tag in note[4].split(',') %}
+    <a href="/tag/{{ tag.strip() }}" class="tag">#{{ tag }}</a>
+{% endfor %}
+</p>
+</div>
+{% else %}
+<p>No notes yet</p>
+{% endfor %}
+<script>
+function toggleDark() {
+    document.body.classList.toggle("dark");
+}
+
+</script>
+</div>
+</body>
+</html>

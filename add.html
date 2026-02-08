@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Note</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h2>Add Note</h2>
+
+<form method="POST">
+    <input name="title" placeholder="Title" required><br><br>
+
+    <textarea name="content" placeholder="Content" required></textarea><br><br>
+
+    <select name="type">
+        <option>note</option>
+        <option>idea</option>
+        <option>link</option>
+    </select><br><br>
+
+    <button type="submit">Save</button>
+</form>
+
+<a href="/">Back</a>
+
+</body>
+</html>

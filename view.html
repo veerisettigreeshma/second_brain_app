@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Note</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+<h2>{{ note[1] }}</h2>
+<p><b>Type:</b> {{ note[3] }}</p>
+
+<hr>
+
+<p>{{ note[2] }}</p>
+
+<br>
+
+<button onclick="summarize()">✨ Summarize</button>
+
+<div id="summaryBox" class="card" style="display:none;"></div>
+
+<br>
+<a class="btn" href="/">Back</a>
+
+</div>
+
+<script>
+function summarize() {
+    fetch("/summarize/{{ note[0] }}")
+        .then(res => res.json())
+        .then(data => {
+            const box = document.getElementById("summaryBox");
+            box.style.display = "block";
+            box.innerText = data.summary;
+        });
+}
+</script>
+
+</body>
+</html>
