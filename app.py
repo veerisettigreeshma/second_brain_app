@@ -106,6 +106,9 @@ def summarize(id):
             {"role": "user", "content": f"Summarize this note in 3-4 lines:\n{text}"}
         ]
     )
+
+    summary = response.choices[0].message.content
+    return jsonify({"summary": summary})
     
 @app.route("/delete/<int:id>")
 def delete_note(id):
@@ -163,7 +166,6 @@ def ask_ai():
     return jsonify({"answer": answer})
     summary = response.choices[0].message.content
 
-    return jsonify({"summary": summary})
 
 
 if __name__ == "__main__":
