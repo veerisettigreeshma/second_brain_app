@@ -98,6 +98,9 @@ def summarize(id):
     note = conn.execute("SELECT content FROM notes WHERE id=?", (id,)).fetchone()
     conn.close()
 
+    if not note:
+        return jsonify({"summary": "Note not found"})
+
     text = note[0]
 
     response = client.chat.completions.create(
@@ -108,8 +111,9 @@ def summarize(id):
     )
 
     summary = response.choices[0].message.content
+
     return jsonify({"summary": summary})
-    
+
 @app.route("/delete/<int:id>")
 def delete_note(id):
     conn = sqlite3.connect("database.db")
@@ -125,7 +129,7 @@ def search():
 
     conn = sqlite3.connect("database.db")
     notes = conn.execute(
-        "SELECT * FROM notes WHERE title LIKE ? OR content LIKE ? OR tags LIKE ?",
+        "SELECT * FROM notes WHERE title LIKE ? OR content LIKE ? OR type LIKE ?",
         (f"%{q}%", f"%{q}%", f"%{q}%")
     ).fetchall()
     conn.close()
@@ -138,7 +142,7 @@ def search():
 def filter_tag(tag):
     conn = sqlite3.connect("database.db")
     notes = conn.execute(
-        "SELECT * FROM notes WHERE tags LIKE ?",
+        "SELECT * FROM notes WHERE type LIKE ?",
         (f"%{tag}%",)
     ).fetchall()
     conn.close()
@@ -164,10 +168,8 @@ def ask_ai():
     answer = response.choices[0].message.content
 
     return jsonify({"answer": answer})
-    summary = response.choices[0].message.content
 
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
-    
+    app.run(host="0.0.0.0", port=5000)
